@@ -1,0 +1,68 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+<head>
+    <title>VR Doge</title>
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="js/argon.min.js"></script>
+    <script src="js/argon-aframe.min.js"></script>
+    <script src="js/CSS3DArgonHUD.js"></script>
+    <script src="js/CSS3DArgonRenderer.js"></script>
+    <script src="js/aframe-look-at-component.js"></script>
+    
+        <link href="https://fonts.googleapis.com/css?family=Short+Stack" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <a-scene vr-mode-ui="enabled: false">
+        <a-assets>
+            <a-asset-item id="vuforiakey" src="key.txt"></a-asset-item>
+            <img id="dogeCoinImg" src="images/dogecoin.png">
+            <img id="moon" src="images/moonSurface.jpg">
+            <img id="sky" src="images/stars.jpg">
+            <img id="moon" src="images/moon.jpg">
+            <img id="moonSurface" src="images/moonSurfacehighRes-min.jpg">
+            <img id="earthMap" src="images/earthDay.jpg">
+            <img id="mountains" src="images/mountains.png">
+        </a-assets>
+        <a-sky color="black"></a-sky>
+
+        <ar-frame id="frame" trackvisibility="true" visible="true" parent="vuforia.doge.DogeQR" position="0 0 0" rotation="0 0 0">
+
+
+            <a-sphere id="skyBox" material="src: #sky; side: back;" radius="500">
+                <a-animation attribute="rotation" dur="500000" fill="forwards" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
+            </a-sphere>
+            <a-sphere id="skyBox2" material="src: #sky; side: back;" radius="499.5;" opacity="0.7;">
+                <a-animation attribute="rotation" dur="500000" fill="forwards" to="360 0 0" easing="linear" repeat="indefinite"></a-animation>
+            </a-sphere>
+
+
+            <a-sphere id="theMountains" material="src: #mountains; side: back; transparent: true;" radius="450;" opacity="1;">
+            </a-sphere>
+
+            <a-sphere id="earth" rotation="0 0 0" position="-7 8 -3" material="height:0.1;src:#earthMap;color:white;metalness:0" height="0.1" radius="1" scale="1 1 1" visible="true" geometry="primitive:sphere;radius:1">
+                <a-animation data-brackets-id="19270" attribute="rotation" dur="900000" fill="both" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
+            </a-sphere>
+
+            <a-cylinder id="LargeDogeCoin" rotation='90 0 0' position='0 2.21 -3' material="src: #dogeCoinImg; color: gold; metalness:0.2;" height="0.1" radius="1">
+                <a-animation attribute="rotation" dur="5000" fill="both" to="90 0 360" easing="linear" repeat="indefinite"></a-animation>
+            </a-cylinder>
+
+            <a-entity position="0 1.43 -4">
+                <a-text id="VRBalance" align='center' opacity="100" side="5" position="0 -0.45 1.4" rotation="-13 0 0" height="1" width="2" value="CURRENT BALANCE" material="shader: flat;"></a-text>
+
+                <a-text id="VRDogeBalance" color="yellow"  align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balance + ' DOGE'" value="1,0000,0000.00000000"></a-text>
+
+                <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr" value="DCuXRganmJgArhX14CPNVAWPitpBcBHvdu"></a-text>
+            </a-entity>
+            <a-image id="Ground" height="120" width="240" rotation="90 0 0" position="0 0 0" src="#moonSurface" material="normalMap:#moon;"></a-image>
+        </ar-frame>
+    </a-scene>
+
+</body>
+
+</html>

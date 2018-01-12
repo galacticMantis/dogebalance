@@ -1,0 +1,283 @@
+<html>
+
+<head>
+    <!--Meta data-->
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-title" content="Doge Balance">
+    <!--VR Scripts-->
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="js/argon.min.js"></script>
+    <script src="js/argon-aframe.min.js"></script>
+    <script src="js/CSS3DArgonHUD.js"></script>
+    <script src="js/CSS3DArgonRenderer.js"></script>
+    <script src="js/aframe-look-at-component.js"></script>
+    <!--Main App Scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+    <script src="js/fontawesome-all.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <!--Style Sheets-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+    <link href="https://fonts.googleapis.com/css?family=Short+Stack" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.1.19/css/materialdesignicons.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--icons-->
+    <link rel="apple-touch-icon" sizes="57x57" href="images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
+    <link rel="manifest" href="images/icons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="images/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Dogecoin Balance</title>
+
+</head>
+
+<body>
+    <div id="app">
+
+        <!--This is where the VR starts-->
+        <div id="VRDoge">
+            <a-scene vr-mode-ui="enabled: true">
+                <a-assets>
+                    <a-asset-item id="vuforiakey" src="key.txt"></a-asset-item>
+                    <img id="dogeCoinImg" src="images/dogecoin.png">
+                    <img id="moon" src="images/moonSurface.jpg">
+                    <img id="sky" src="images/stars.jpg">
+                    <img id="moon" src="images/moon.jpg">
+                    <img id="moonSurface" src="images/moonSurfacehighRes-min.jpg">
+                    <img id="earthMap" src="images/earthDay.jpg">
+                    <img id="mountains" src="images/mountains.png">
+                </a-assets>
+                <a-sky color="black"></a-sky>
+
+                <ar-frame id="frame" trackvisibility="true" visible="true" parent="vuforia.doge.DogeQR" position="0 0 0" rotation="0 0 0">
+
+
+                    <a-sphere id="skyBox" material="src: #sky; side: back;" radius="500">
+                        <a-animation attribute="rotation" dur="500000" fill="forwards" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
+                    </a-sphere>
+                    <a-sphere id="skyBox2" material="src: #sky; side: back;" radius="499.5;" opacity="0.7;">
+                        <a-animation attribute="rotation" dur="500000" fill="forwards" to="360 0 0" easing="linear" repeat="indefinite"></a-animation>
+                    </a-sphere>
+
+
+                    <a-sphere id="theMountains" material="src: #mountains; side: back; transparent: true;" radius="450;" opacity="1;">
+                    </a-sphere>
+
+                    <a-sphere id="earth" rotation="360 0 0" position="-170 280 -3" material="height:0.1;src:#earthMap;color:white;metalness:0" height="0.1" radius="50" scale="1 1 1">
+                        <a-animation data-brackets-id="19270" attribute="rotation" dur="900000" fill="both" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
+                    </a-sphere>
+
+                    <a-cylinder id="LargeDogeCoin" rotation='90 0 0' position='0 2.21 -3' material="src: #dogeCoinImg; color: gold; metalness:0.2;" height="0.1" radius="1">
+                        <a-animation attribute="rotation" dur="5000" fill="both" to="90 0 360" easing="linear" repeat="indefinite"></a-animation>
+                    </a-cylinder>
+
+                    <a-entity position="0 1.43 -4">
+                        <a-text id="VRBalance" material="metalness:0;" align='center' position="0 -0.45 1.4" rotation="-13 0 0" height="1" width="2" value="CURRENT BALANCE"></a-text>
+
+                        <a-text id="VRDogeBalance" color="yellow" align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balance + ' DOGE'"></a-text>
+
+                        <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr"></a-text>
+                    </a-entity>
+                    <a-image id="Ground" height="120" width="240" rotation="90 0 0" position="0 0 0" src="#moonSurface" material="normalMap:#moon;"></a-image>
+                </ar-frame>
+            </a-scene>
+        </div>
+        <!--This is where the VR ends-->
+
+
+        <nav class=" navDoge" role="navigation" aria-label="main navigation">
+            <div class="titleDoge">
+                <wow>DOGECOIN</wow> <img class="dogeIcon" src="images/dogeIcon.png">
+                <wow>BALANCE</wow>
+            </div>
+        </nav>
+
+        <div class="columns is-mobile">
+
+            <div class="column is-half is-offset-one-quarter has-text-centered dogeCoinImage">
+                <img height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
+                <img height="200px;" width="200px" class="mainImg" v-else :src="dogeCoinImg" @click="QRisActive = !QRisActive"></div>
+        </div>
+
+        <div class="columns is-mobile">
+
+            <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered is-paddingless subtitleDoge">Current Balance
+                <br>
+                <div v-if="isRaw" @click="isRaw = !isRaw" class="title">{{ balance }} Đ</div>
+                <div v-else @click="isRaw = !isRaw" class="title">{{ balanceRaw }} Đ</div>
+            </div>
+        </div>
+
+
+        <div class="columns is-mobile">
+
+            <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered qrcode-text">
+                <input id="input" type=text placeholder="DOGE Public Address" class="qrcode-text" v-model="addr">
+                <label class="qrcode-text-btn">
+                    <input type=file accept="image/*" capture=environment onclick="return showQRIntro();" onchange="openQRCamera(this);" tabindex=-1>
+                </label>
+            </div>
+        </div>
+        <a :href="'https://dogechain.info/address/' + visibleAddr" target="_blank">
+            <div class="has-text-centered visAddress">{{ visibleAddr }}</div>
+        </a>
+        <div class="columns is-mobile">
+            <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered">
+                <br>
+                <div class="buttons has-addons is-centered">
+                    <button class="button is-large dogeButton" is-warning @click="dogeBalance(); dogeQR(); dogeVisibleAddr(); dogeClearAddr();">Find my Đoge</button>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar is-transparent is-fixed-bottom bottomNav">
+            <div class="navbar-brand">
+
+                <div class="navbar-item navButton" @click="startVR();"> <span class="icon"><i class="mdi mdi-google-cardboard"></i></span></i>
+                    <h3>VR Mode</h3></div>
+                <a href="AR.html">
+                    <div class="navbar-item navButton navLink" onclick="window.open('AR.html','mywindow');"> <span class="icon"><i class="mdi mdi-camera"></i></span></i>
+                        <h3>AR Mode</h3></div>
+                </a>
+
+
+                <div class="navbar-item navButton" @click="isActive = true"> <span class="icon"><i class="mdi mdi-help"></i></span></i>
+                    <h3>About</h3></div>
+            </div>
+        </nav>
+        <!--bottom Nav End-->
+
+
+        <div class="modal" v-bind:class="{ 'is-active': isActive, 'text-danger': hasError }">
+            <div class="modal-background" @click="isActive = false"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <h1>About this App</h1>
+                    <p class="modal-card-title"></p>
+                    <button class="delete" aria-label="close" @click="isActive = false"></button>
+                </header>
+                <section class="modal-card-body">
+                    <p>DISCLAIMER: This web app was built as a learning experiment and for fun! Please do not use it for any financial transactions and make sure that you double and triple check with official sources for completely accurate information.</p>
+                    <h1>Wow. Much hello.</h1>
+                    <p class="about">
+                        You want to know more about this app?
+                        <p>The basic idea was to have a simple way to check your DOGE balance on your phone. Originally I had just planned on having you copy and paste your address into the search bar. Then I found out how to implement QR code scanning. Then I thought, well that's all really cool but you know what would be even cooler? Virtual and Augmented Reality integration! As you can tell, these features are probably extremely buggy but they sorta work! Does any other cryptocurrency have that? NO! Not to my knowledge...Though I haven't really looked into it.</p>
+
+                        <p>Why this? I wanted to learn how to use VueJS and build a functional and practical web app (Gotta do something inbetween sleep and unemployment). So I thought it would be a fun idea to make an app for all the awesome shibe that use DogeCoin. The community seems so nice and even though I'm a lurker, it's refreshing to be somewhere on the internet that is happy.</p>
+
+                        <p>In its simplest form, this app uses the dogechain.info API to check your balance and then displays it on the screen for you!</p>
+
+                        <br>
+                        <h1>Features:</h1>
+
+                        <ul>
+                            <li>1. Easily check your DOGE balance!</li>
+                            <li>2. Either type in your Public Address or Scan your QR code!</li>
+                            <li>3. Tap on your address to go to the dogechain.info site directly!</li>
+                            <li>4. You can go to the Moon with your DOGECOIN in VR!</li>
+                            <li>5. You can look at your balance with AR!</li>
+                            <li>6. If you tap your balance it'll switch between decimal and non-decimal mode.</li>
+                            <li>7. If you tap the Shibe's face it'll show you your QR code.</li>
+                            <li>8. The app will save your Public Address so that your balance will pop up automatically next time!(hopefully)</li>
+                        </ul>
+                        <br>
+
+                        <p>NOTE: To use AR feature you must use the mobile browser <a href="https://argonjs.io">Argon4</a>. It is available in <a href="https://itunes.apple.com/us/app/argon4/id1089308600">IOS</a> and <a href="https://play.google.com/store/apps/details?id=edu.gatech.argon4">Android</a> app stores.</p>
+
+                        <p>Note 2: Another AR requirement. To make the AR work a target is needed. I had originally planned on letting you use the doge paper wallet front image. The standalone image of the dogecoin or shibe himself. Sadly, those images aren't compatible enough with the targetting software. So I created a special target just for use with this. For the printable wallet cover <a href="https://galacticmantis.github.io/dogebalance/downloads/dogeAR.pdf" target="_blank">Click Here</a> or for just the standalone image <a href="https://galacticmantis.github.io/dogebalance/downloads/dogeAR.jpg" target="_blank">Click Here</a></p>
+
+                        <p>NOTE 3: More AR stuff! To make sure you can see your balance you must enter your info on the main page using Argon4.</p>
+
+                        <p>NOTE 4: The VR feature can be used on mobile with a Google Cardboard or something similar. It can also be used with a desktop VR headset. You can also just click it in your regular browser window and it'll open a full screen 2D version!</p>
+                        <br>
+                        <br>
+
+                        <h2 class="strike">Bugs:</h2>
+                        <h2>&nbsp; Bonus features:</h2>
+
+                        <ul>
+                            <li>1. Sometimes VR mode spazzes out after getting a new address. If that happens just refresh and try again.</li>
+                            <li>2. QR code logo is kind of hard to tap sometimes.</li>
+                            <li>3. This color scheme. Orange you happy it isn't gold?</li>
+                            <li>4. Decimal mode doesn't show if you have a whole number of DOGE</li>
+                            <li>5. For IOS the QR camera only works in Safari. Not from homescreen or in Argon4.</li>
+                        </ul>
+                    </p>
+                    <br>
+                    <p>I guess that's it... If you wanna check out my source code it's available on <a href="https://github.com/galacticMantis/dogebalance" target="_blank"><span class="icon"><i class="mdi mdi-github-circle"></i></span> Github</a>.</p>
+                    <br>
+                    <h2>Credits and stuff:</h2>
+                    <p>
+                        <ul>
+                            <a href="https://vuejs.org/" target="_blank">
+                                <li>Vue.JS</li>
+                            </a>
+                            <a href="https://bulma.io/" target="_blank">
+                                <li>Bulma.IO</li>
+                            </a>
+                            <a href="https://dogechain.info/">
+                                <li>Dogechain.info API</li>
+                            </a>
+                            <a href="https://aframe.io/" target="_blank">
+                                <li>Aframe.IO</li>
+                            </a>
+                            <a href="https://www.argonjs.io/" target="_blank">
+                                <li>Argon.JS</li>
+                            </a>
+                            <a href="https://jquery.com/" target="_blank">
+                                <li>JQuery</li>
+                            </a>
+                            <a href="https://github.com/" target="_blank">
+                                <li>Github</li>
+                            </a>
+                            <a href="https://www.sitepoint.com/create-qr-code-reader-mobile-website/" target="_blank">
+                                <li>QRCode Scanner</li>
+                            </a>
+                            <a href="https://materialdesignicons.com/" target="_blank">
+                                <li>Material Design Icons</li>
+                            </a>
+                            <a href="https://www.reddit.com/r/dogecoin/" target="_blank">
+                                <li>Dogecoin Subreddit</li>
+                            </a>
+                        </ul>
+                    </p>
+
+                    <p>Thank you all for getting all the way down to the bottom of this thing. Thank you dogecoing community for inspiring me to learn how to make this thing work. Hopefully you find it useful and fun!</p>
+                    <p>If you feel like I deserve it, I'd be grateful to accept any tips to my dogecoin address. Or hey maybe you're hiring a remote web designer?</p>
+                    <a href="https://dogechain.info/address/DCuXRganmJgArhX14CPNVAWPitpBcBHvdu" target="_blank">
+                        <p class="visAddress">DCuXRganmJgArhX14CPNVAWPitpBcBHvdu</p>
+                    </a>
+
+                </section>
+                <footer class="modal-card-foot">
+
+                </footer>
+            </div>
+        </div>
+        <!--Close about Modal-->
+
+
+    </div>
+    <!--Close App-->
+
+    <script type="text/javascript" src="app.js"></script>
+</body>
+
+</html>

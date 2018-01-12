@@ -1,0 +1,207 @@
+        body {
+            background-color: #F2F2F2;
+            font-family: 'Short Stack', sans-serif;
+        }
+        
+        .navDoge {
+            background-color: #E8922D;
+            text-align: center;
+            vertical-align: middle;
+            height: 60px;
+        }
+        
+        .footer {
+            background-color: #E8922D;
+        }
+        
+        .dogeIcon {
+            max-height: 40px;
+            max-width: 40px;
+            margin-top: 10px;
+        }
+        
+        .dogeButton {
+            font-family: 'Short Stack', sans-serif;
+            font-size: 2rem;
+            background-color: #E8922D;
+            color: #F2F2F2;
+            width: 85%;
+            height: 8vh;
+            padding: 0;
+            margin: 0;
+            border-radius: 0.5rem;
+        }
+        
+        .dogeButton:hover {
+            background-color: #AA6622;
+            color: #F2F2F2;
+        }
+        
+        .dogeInput {
+            font-family: 'Short Stack', sans-serif;
+            width: 90%;
+        }
+        
+        .titleDoge {
+            font-size: 20px;
+            font-weight: bold;
+            color: #F2F2F2;
+            cursor:
+        }
+        
+        .dogeCoinImage {
+            padding-top: 1rem;
+        }
+        
+        wow {
+            vertical-align: super;
+            padding-left: 1rem;
+            padding-right: 1rem
+        }
+        
+        a-scene {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        #VRDoge {
+            visibility: hidden;
+        }
+        
+        #ARDoge {
+            display: none;
+        }
+        
+        .title {
+            font-family: 'Open Sans Condensed', sans-serif;
+            font-weight: 100;
+            font-size: 4em;
+            cursor: pointer;
+            color: #E8922D;
+        }
+        
+        .subtitleDoge {
+            font-size: 0.6em;
+        }
+        
+        .columns .dogeButton {
+            margin-top: -0.8em;
+        }
+        
+        .button {
+            padding: 0;
+        }
+        
+        body,
+        input {
+            font-size: 14pt;
+        }
+        
+        input,
+        label {
+            vertical-align: middle;
+        }
+        
+        .qrcode-text {
+            width: 90%;
+            height: 2.5em;
+            padding-left: 0.5em;
+            border-radius: 0.3em;
+        }
+        
+        .qrcode-text-btn {
+            display: inline-block;
+            background: url(//dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg) 50% 50% no-repeat;
+            height: 2em;
+            width: 1.7em;
+            margin-left: -2.5em;
+            cursor: pointer
+        }
+        
+        .qrcode-text-btn > input[type=file] {
+            position: absolute;
+            overflow: hidden;
+            width: 1px;
+            height: 1px;
+            opacity: 0
+        }
+        
+        .visAddress {
+            font-size: 0.7em;
+            color: #E8922D;
+        }
+        
+        .bottomNav {
+            background-color: #E8922D;
+        }
+        
+        .bottomNav a {
+            padding-top: 0.2em;
+        }
+        
+        .navButton {
+            background-color: #E8922D;
+            color: white;
+            font-size: 1em;
+            border: 6px;
+        }
+        
+        .navButton:hover {
+            background-color: #AA6622;
+            color: white;
+            cursor: pointer;
+        }
+        
+        @media only screen and (max-width: 900px) {
+            .navButton {
+                background-color: #E8922D;
+                color: white;
+                width: 33%;
+                font-size: 1em;
+                text-align: center;
+            }
+            .navButton h3 {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .navLink {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        
+        .modal {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.8em;
+        }
+        
+        .modal h1 {
+            font-family: 'Short Stack', sans-serif;
+            font-size: 1.5em;
+        }
+        
+        .modal h2 {
+            font-family: 'Short Stack', sans-serif;
+            display: inline-block;
+        }
+        
+        .strike {
+            text-decoration: line-through;
+        }
+        
+        .modal p {
+            margin-top: 1em;
+            font-size: 0.8em;
+        }
+        
+        .modal li {
+            margin-top: 1em;
+            font-size: 0.8em;
+        }
+        
+        .modal i {
+            font-size: 2em;
+            padding: 0.5em;
+        }
