@@ -1,23 +1,24 @@
 <!doctype HTML>
 <html>
-    <head>
-<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
-<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.1/aframe/build/aframe-ar.js">
-    
-</script>
-        <style>
-            #arjsDebugUIContainer{
-             display: none;
-            }
-        </style>
+
+<head>
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.1/aframe/build/aframe-ar.js">
+    </script>
+    <style>
+        #arjsDebugUIContainer {
+            display: none;
+        }
+    </style>
 </head>
+
 <body style='margin : 0px; overflow: hidden;'>
     <a-scene vr-mode-ui="enabled: false" vr embedded artoolkit='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         <img id="dogeCoinImg" src="images/dogecoin.png">
         <img id="moon" src="images/moonSurfacehighRes-min.jpg">
         </a-assets>
-    
-            <a-marker preset='kanji'>
+
+        <a-marker preset='kanji'>
             <a-entity scale="0.5 0.5 0.5" rotation="-90 0 0">
                 <a-sphere position='0 0.5 0' material='color: white; src:#moon;'>
                     <a-animation attribute="rotation" dur="50000" fill="both" to="0 0 360" easing="linear" repeat="indefinite"></a-animation>
@@ -26,9 +27,9 @@
                 <a-cylinder id="LargeDogeCoin" rotation="0 -178 0" position="0 0 2.152" material="src:#dogeCoinImg; color:gold; metalness:0.2;" height="0.1" radius="1" scale="1 1 1" visible="true">
                     <a-animation attribute="rotation" dur="5000" fill="both" to="0 -178 360" easing="linear" repeat="indefinite"></a-animation>
                 </a-cylinder>
-                
+
                 <a-text id="VRBalance" align="center" position="0.103 -0.925 0.826" rotation="61.822146094615825 0 0" height="1" width="2" value="CURRENT BALANCE" scale="1 1 1" visible="true"></a-text>
-                                
+
                 <a-text id="VRDogeBalance" align="center" position="0.155 -1.065 0.666" rotation="64.74423084978302 0 0" value="" scale="1 1 1" visible="true"></a-text>
 
                 <a-text id="VRAddr" align="center" position="0.129 -1.167 0.479" rotation="48.930595704172305 0 0" height="1" width="2" value="" scale="1 1 1" visible="true"></a-text>
@@ -36,13 +37,12 @@
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
-    
-        <script>
+
+    <script>
         var userAdd = localStorage.getItem("userAddr");
         var userBal = localStorage.getItem("userBalance");
         document.getElementById("VRAddr").setAttribute("value", userAdd);
-        document.getElementById("VRDogeBalance").setAttribute("value", userBal);
-        
+        document.getElementById("VRDogeBalance").setAttribute("value", userBal + ' DOGE');
     </script>
 </body>
 

@@ -91,7 +91,7 @@
                     <a-entity position="0 1.43 -4">
                         <a-text id="VRBalance" material="metalness:0;" align='center' position="0 -0.45 1.4" rotation="-13 0 0" height="1" width="2" value="CURRENT BALANCE"></a-text>
 
-                        <a-text id="VRDogeBalance" color="yellow" align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balance + ' DOGE'"></a-text>
+                        <a-text id="VRDogeBalance" color="yellow" align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balanceRaw + ' DOGE'"></a-text>
 
                         <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr"></a-text>
                     </a-entity>
@@ -104,7 +104,7 @@
 
         <nav class=" navDoge" role="navigation" aria-label="main navigation">
             <div class="titleDoge">
-                <wow>DOGECOIN</wow> <img class="dogeIcon" src="images/dogeIcon.png">
+                <wow>DOGECOIN</wow> <img alt="Flat Dogecoin Image" class="dogeIcon" src="images/dogeIcon.png">
                 <wow>BALANCE</wow>
             </div>
         </nav>
@@ -112,8 +112,8 @@
         <div class="columns is-mobile">
 
             <div class="column is-half is-offset-one-quarter has-text-centered dogeCoinImage">
-                <img height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
-                <img height="200px;" width="200px" class="mainImg" v-else :src="dogeCoinImg" @click="QRisActive = !QRisActive"></div>
+                <img alt="QR code" height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
+                <img alt="Dogecoin image" height="200px;" width="200px" class="mainImg" v-else :src="dogeCoinImg" @click="QRisActive = !QRisActive"></div>
         </div>
 
         <div class="columns is-mobile">
@@ -150,14 +150,17 @@
         <nav class="navbar is-transparent is-fixed-bottom bottomNav">
             <div class="navbar-brand">
 
-                <div class="navbar-item navButton" @click="startVR();">
-                    <h3>VR <span class="icon"><i class="mdi mdi-google-cardboard"></i></span></h3></div>
-                    <div class="navbar-item navButton" onclick="window.open('AR.html','mywindow');">
-                        <h3>AR <span class="icon"><i class="mdi mdi-camera"></i></span></h3></div>
+                <div aria-label="Start VR Mode" class="navbar-item navButton" @click="startVR();">
+                    <h3>VR <span class="icon"><i class="mdi mdi-google-cardboard"></i></span></h3>
+                </div>
+                <div aria-label="Star AR Mode" class="navbar-item navButton" onclick="window.open('AR.html','mywindow');">
+                    <h3>AR <span class="icon"><i class="mdi mdi-camera"></i></span></h3>
+                </div>
 
 
                 <div class="navbar-item navButton" @click="isActive = true">
-                    <h3><span class="icon"><i class="mdi mdi-help"></i></span>Info</h3></div>
+                    <h3><span class="icon"><i class="mdi mdi-help"></i></span>Info</h3>
+                </div>
             </div>
         </nav>
         <!--bottom Nav End-->
@@ -198,7 +201,7 @@
                         <br>
 
                         <p>Note 1: to use the AR feature you need to use a target. I'm using a preset target from ARToolkit for now. I dazzled it up a little and put it in PDF form for easy printing. You can get it by <a href="https://galacticmantis.github.io/dogebalance/downloads/dogeAR.pdf" target="_blank">Clicking Here</a>.</p>
-                        <p> Note 2: AR should work natively in your mobile browser! For iPhones you have to be on iOS11 and use Safari. For Android phones I'd probably reccomend Chrome.</p> 
+                        <p> Note 2: AR should work natively in your mobile browser! For iPhones you have to be on iOS11 and use Safari. For Android phones I'd probably reccomend Chrome.</p>
 
                         <p>NOTE 3: The VR feature can be used on mobile with a Google Cardboard or something similar. It can also be used with a desktop VR headset. You can also just click it in your regular browser window and it'll open a full screen 2D version!</p>
                         <br>
@@ -260,8 +263,8 @@
                     <a href="https://dogechain.info/address/DCuXRganmJgArhX14CPNVAWPitpBcBHvdu" target="_blank">
                         <p class="visAddress">DCuXRganmJgArhX14CPNVAWPitpBcBHvdu</p>
                     </a>
-            <p>Last updated January 2018</p>
-            <p>Thank you everyone if you have any questions send me an email at, galacticmantis at gmail dot com</p>
+                    <p>Last updated January 2018</p>
+                    <p>Thank you everyone if you have any questions send me an email at, galacticmantis at gmail dot com</p>
 
                 </section>
                 <footer class="modal-card-foot">
