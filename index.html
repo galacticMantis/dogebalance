@@ -150,16 +150,14 @@
         <nav class="navbar is-transparent is-fixed-bottom bottomNav">
             <div class="navbar-brand">
 
-                <div class="navbar-item navButton" @click="startVR();"> <span class="icon"><i class="mdi mdi-google-cardboard"></i></span></i>
-                    <h3>VR Mode</h3></div>
-                <a href="AR.html">
-                    <div class="navbar-item navButton navLink" onclick="window.open('AR.html','mywindow');"> <span class="icon"><i class="mdi mdi-camera"></i></span></i>
-                        <h3>AR Mode</h3></div>
-                </a>
+                <div class="navbar-item navButton" @click="startVR();">
+                    <h3>VR <span class="icon"><i class="mdi mdi-google-cardboard"></i></span></h3></div>
+                    <div class="navbar-item navButton" onclick="window.open('AR.html','mywindow');">
+                        <h3>AR <span class="icon"><i class="mdi mdi-camera"></i></span></h3></div>
 
 
-                <div class="navbar-item navButton" @click="isActive = true"> <span class="icon"><i class="mdi mdi-help"></i></span></i>
-                    <h3>About</h3></div>
+                <div class="navbar-item navButton" @click="isActive = true">
+                    <h3><span class="icon"><i class="mdi mdi-help"></i></span>Info</h3></div>
             </div>
         </nav>
         <!--bottom Nav End-->
@@ -199,13 +197,10 @@
                         </ul>
                         <br>
 
-                        <p>NOTE: To use AR feature you must use the mobile browser <a href="https://argonjs.io">Argon4</a>. It is available in <a href="https://itunes.apple.com/us/app/argon4/id1089308600">IOS</a> and <a href="https://play.google.com/store/apps/details?id=edu.gatech.argon4">Android</a> app stores.</p>
+                        <p>Note 1: to use the AR feature you need to use a target. I'm using a preset target from ARToolkit for now. I dazzled it up a little and put it in PDF form for easy printing. You can get it by <a href="https://galacticmantis.github.io/dogebalance/downloads/dogeAR.pdf" target="_blank">Clicking Here</a>.</p>
+                        <p> Note 2: AR should work natively in your mobile browser! For iPhones you have to be on iOS11 and use Safari. For Android phones I'd probably reccomend Chrome.</p> 
 
-                        <p>Note 2: Another AR requirement. To make the AR work a target is needed. I had originally planned on letting you use the doge paper wallet front image. The standalone image of the dogecoin or shibe himself. Sadly, those images aren't compatible enough with the targetting software. So I created a special target just for use with this. For the printable wallet cover <a href="https://galacticmantis.github.io/dogebalance/downloads/dogeAR.pdf" target="_blank">Click Here</a> or for just the standalone image <a href="https://galacticmantis.github.io/dogebalance/downloads/dogeAR.jpg" target="_blank">Click Here</a></p>
-
-                        <p>NOTE 3: More AR stuff! To make sure you can see your balance you must enter your info on the main page using Argon4.</p>
-
-                        <p>NOTE 4: The VR feature can be used on mobile with a Google Cardboard or something similar. It can also be used with a desktop VR headset. You can also just click it in your regular browser window and it'll open a full screen 2D version!</p>
+                        <p>NOTE 3: The VR feature can be used on mobile with a Google Cardboard or something similar. It can also be used with a desktop VR headset. You can also just click it in your regular browser window and it'll open a full screen 2D version!</p>
                         <br>
                         <br>
 
@@ -214,10 +209,11 @@
 
                         <ul>
                             <li>1. Sometimes VR mode spazzes out after getting a new address. If that happens just refresh and try again.</li>
-                            <li>2. QR code logo is kind of hard to tap sometimes.</li>
-                            <li>3. This color scheme. Orange you happy it isn't gold?</li>
+                            <li>2. QR scan logo is kind of hard to tap sometimes.</li>
+                            <li>3. AR mode might look weird in portrait mode. Try turning to landscape.</li>
                             <li>4. Decimal mode doesn't show if you have a whole number of DOGE</li>
-                            <li>5. For IOS the QR camera only works in Safari. Not from homescreen or in Argon4.</li>
+                            <li>5. For iOS the QR camera only works in Safari. Will not work when you add to homescreen. I'm not sure about Android.</li>
+                            <li>6. If this info modal gets stuck, press the X and re-open.</li>
                         </ul>
                     </p>
                     <br>
@@ -238,8 +234,8 @@
                             <a href="https://aframe.io/" target="_blank">
                                 <li>Aframe.IO</li>
                             </a>
-                            <a href="https://www.argonjs.io/" target="_blank">
-                                <li>Argon.JS</li>
+                            <a href="https://github.com/jeromeetienne/AR.js" target="_blank">
+                                <li>AR.JS</li>
                             </a>
                             <a href="https://jquery.com/" target="_blank">
                                 <li>JQuery</li>
@@ -264,6 +260,8 @@
                     <a href="https://dogechain.info/address/DCuXRganmJgArhX14CPNVAWPitpBcBHvdu" target="_blank">
                         <p class="visAddress">DCuXRganmJgArhX14CPNVAWPitpBcBHvdu</p>
                     </a>
+            <p>Last updated January 2018</p>
+            <p>Thank you everyone if you have any questions send me an email at, galacticmantis at gmail dot com</p>
 
                 </section>
                 <footer class="modal-card-foot">
@@ -271,7 +269,7 @@
                 </footer>
             </div>
         </div>
-        <!--Close about Modal-->
+        <!--Close info Modal-->
 
 
     </div>
