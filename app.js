@@ -127,6 +127,17 @@ var vm = new Vue({
 
 });
 
+function confirmAR() {
+var response = confirm("AR mode requires you to be using a mobile browser. Safari for iOS11 and Chrome for Android. You'll also need to download the target image from the info tab. Press OK to continue.");
+
+if ( response == true ){
+    window.open('AR.html','mywindow');
+    
+}else{
+}
+};
+
+
 function openQRCamera(node) { //Opens the camera or file explorer to get a picture of a QR code. So you don't have to type it in manually.
     var reader = new FileReader();
     reader.onload = function () {
