@@ -1,90 +1,227 @@
+//Dev Notes:
+//January 2018
+//Hello there and welcome to my app.js file! If you're here you must be curious about how this web app works. 
+//Or you are trying to judge my coding abilities for some reason. 
+//Well, hopefully I labelled everything clear enough for you (and myself) to understand what's going on.
+//I built this app as a learning experience to learn how to use VueJS. I'm sort of a newb at this stuff still.
+//I also thought it would be fun to have VR and AR versions of a dogecoin balance checker.
+//I'm sure everything can be optimized and made a lot better but the point is that it works!
 
-// this is all about the load/splash screen
-var arScene = document.querySelector('ar-scene');
-var statusMsg = document.querySelector('#status');
-var loader = document.querySelector('#loader-wrapper');
-statusMsg.innerHTML = "loading argon and aframe...";
-var frame = document.querySelector("#frame");
-var content = document.querySelector("#content");
+Vue.component('modal', {
+    template: '#modal-template'
+})
 
-var hudElem = document.querySelector("#lookattarget");
-var hudElem2 = hudElem.cloneNode( true );
-hudElem2.id = hudElem.id + "2";
+var vm = new Vue({
 
-var contentRoot = document.querySelector('#logoscene');
-var animations = document.querySelectorAll('#logoscene a-animation');
-contentRoot.pause();
+    el: '#app',
+    data: {
+        balance: '', //balance with no decimals,
+        balanceRaw: '', //Balance with decimals intact.
+        addr: '', //This is connected to the form input. It is not visible on the page other than in the form.
+        visibleAddr: '', //Address preset to show a default value.
+        dogeCoinImg: 'images/dogecoin1.png', //Image of coin.
+        QR: '', //Doge QR code is generated and URL goes here.
+        QRisActive: false, //QR or Dogecoin Image is active.
+        isRaw: true, //Click balance to show the decimal places or not.
+        VRisOn: false,
+        isActive: false,
+        hasError: false,
+        dogeExchangeRate: '1 Đ',
+        dogeTargetCurrency: '',
+        country: 'doge',
+        dogeConversion: '',
+        showModal: false,
+        showConversion: false,
+        showCurrencies: false,
 
-arScene.addEventListener('argon-initialized', function(evt) {
-    statusMsg.innerHTML = "argon initialized, starting vuforia...";
+    },
+    created: function () {
+        this.dogeDefault(); //Gets the information for my default address to fill in everything.
+    },
+    methods: {
+
+        dogeBalance: function () { //Checks balance for dogeaddress.
+            this.balance = 'loading...';
+            dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
+            var vm = this;
+            axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
+                    var shortBal = parseInt(response.data['balance']); //Short Balance
+                    var longBal = parseFloat(response.data['balance']); //Long Balance
+                    var a = numeral(shortBal).format('0,0');
+                    var b = numeral(longBal).format('0,0.00000000');
+                    vm.balance = a + ' Đ';
+                    vm.balanceRaw = b + ' Đ';
+                    vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
+                    vm.visibleAddr = dogeAddr;
+                    vm.dogeConversion = b;
+                    localStorage.setItem("userBalance", b);
+                })
+                .catch(function (error) {
+                    vm.balance = 'Much error...';
+                    alert('Such Invalid Address...');
+                    localStorage.setItem("userBalance", null);
+                })
+        },
+
+
+        dogeExchange: function () { //Checks exchange rate
+            dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
+            var vm = this;
+            axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
+                    var dPrice = response.data.ticker['price']; //Doge Price
+                    var dCurrency = response.data.ticker['target']; //Doge Target Currency
+                    vm.dogeExchangeRate = dPrice;
+                    vm.dogeTargetCurrency = dCurrency;
+                    localStorage.setItem("exchangeRate", dPrice);
+                    localStorage.setItem("currency", dCurrency);
+                    vm.convertDoge();
+                })
+                .catch(function (error) {
+                    vm.dogeExchangeRate = 'Much Error...';
+                })
+
+        },
+
+        dogeCountry: function () {
+            vm.dogeExchangeRate = "1Đ";
+            vm.dogeTargetCurrency = ''
+            vm.dogeConversion = vm.balance;
+        },
+
+        convertDoge: function () {
+            var balance = parseFloat(vm.balanceRaw);
+            var balanceConverted = balance * vm.dogeExchangeRate;
+            vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+        },
+
+
+        getCurrency: function () {
+            vm.country = document.getElementById('currencyInput').value
+        },
+
+
+        dogeQR: function () {
+            this.QR = 'loading...';
+            this.dogeCoinImg = 'images/dogecoin1.png';
+            dogeAddr = document.getElementById('input').value
+            var vm = this;
+            vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr; //puts dogeAddr variable at the end of the URL to get the QR image.
+
+        },
+
+        dogeImg: function () {
+            dogeAddr = this.visibleAddr;
+            var vm = this;
+            vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
+
+        },
+
+
+        dogeDefault: function () { //performs the same functions as above but with default values in place.
+            if (localStorage.getItem("userAddr") === null || ''){ //hollyy woww. I can't believe I actually got this working! Checks if the user has entered an address before. If they have it reloads from local storage!
+                this.balance = 'loading...';
+                dogeAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                var vm = this;
+                axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
+                        var shortBal = parseInt(response.data['balance']); //Short Balance
+                        var longBal = parseFloat(response.data['balance']); //Long Balance
+                        var a = numeral(shortBal).format('0,0');
+                        var b = numeral(longBal).format('0,0.00000000');
+                        vm.balance = a + ' Đ';
+                        vm.balanceRaw = b + ' Đ';
+                        vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
+                        vm.visibleAddr = dogeAddr;
+                        vm.dogeExchangeRate = " Đ";
+                        vm.dogeTargetCurrency = ''
+                        vm.dogeConversion = vm.balance;
+                        vm.dogeCountry();
+
+                    })
+                    .catch(function (error) {
+                        vm.balance = 'Much Error...';
+                    })
+            } else {
+                this.balance = 'loading...';
+                var dogeAddr = localStorage.getItem("userAddr");
+                var vm = this;  
+                axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
+                        var shortBal = parseInt(response.data['balance']); //Short Balance
+                        var longBal = parseFloat(response.data['balance']); //Long Balance
+                        var a = numeral(shortBal).format('0,0');
+                        var b = numeral(longBal).format('0,0.00000000');
+                        vm.balance = a + ' Đ';
+                        vm.balanceRaw = b + ' Đ';
+                        vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
+                        vm.visibleAddr = dogeAddr;
+                        vm.dogeConversion = b;
+                        vm.dogeCountry();
+
+
+                    })
+                    .catch(function (error) {
+                        vm.balance = 'Much Error...';
+                    })
+            }
+        },
+
+        dogeVisibleAddr: function () { //Creates the visibleAddr variable to display within the page.
+            this.visibleAddr = 'loading...';
+            dogeAddr = document.getElementById('input').value
+            var vm = this;
+            vm.visibleAddr = dogeAddr;
+            localStorage.setItem("userAddr", dogeAddr);
+        },
+
+
+        dogeClearAddr: function () { //Clears the form after pressing main button.
+            this.addr = '';
+        },
+
+        startVR: function () { //Unhides the VR scene and makes it full screen.
+            document.querySelector('a-scene').enterVR();
+            document.getElementById("VRDoge").style.visibility = "visible";
+            document.querySelector('a-scene').addEventListener('exit-vr', function () { //Hides the VR scene and exits full screen.
+                document.getElementById("VRDoge").style.visibility = "hidden";
+            });
+
+        },
+        copyAddr: function () { //Clears the form after pressing main button.
+            var copyText = vm.visibleAddr;
+            window.clipboardData.setData("Text", input.val());
+            alert("Copied the text: " + copyText.value);
+        },
+
+
+
+    }
+
 });
-arScene.addEventListener('argon-vuforia-initialized', function(evt) {
-    statusMsg.innerHTML = "vuforia initialized, downloading dataset...";
-});
-arScene.addEventListener('argon-vuforia-initialization-failed', function(evt) {
-    statusMsg.innerHTML = "vuforia failed to initialize: " + evt.detail.error.message;
-});
 
-arScene.addEventListener('argon-vuforia-dataset-loaded', function(evt) {
-    statusMsg.innerHTML = "done";
-    loader.classList.add('loaded');
+function confirmAR() {
+    var response = confirm("AR mode requires you to be using a mobile browser. Safari for iOS11 and Chrome for Android. You'll also need to download the target image from the info tab. Press OK to continue.");
 
-	// hudElem.style.display = 'inline-block'; // start hidden
-    arScene.hud.appendChild(hudElem, hudElem2);
+    if (response == true) {
+        window.open('AR.html', 'mywindow');
 
-    frame.addEventListener('referenceframe-statuschanged', function(evt) {
-        if (evt.detail.found) {
-            hudElem.classList.add("hide");
-            hudElem2.classList.add("hide");
-	        // hudElem.style.display = 'none'; // hide when target seen
-	        // hudElem2.style.display = 'none'; // hide when target seen
+    } else {}
+};
 
-            contentRoot.pause();
-            contentRoot.setAttribute("visible", false);
-            contentRoot.play();
+function openQRCamera(node) { //Opens the camera or file explorer to get a picture of a QR code. So you don't have to type it in manually.
+    var reader = new FileReader();
+    reader.onload = function () {
+        node.value = "";
+        qrcode.callback = function (res) {
+            if (res instanceof Error) {
+                alert("Very error. Such QR code not found. So try again.");
+            } else {
+                node.parentNode.previousElementSibling.value = res;
+            }
+        };
+        qrcode.decode(reader.result);
+    };
+    reader.readAsDataURL(node.files[0]);
+}
 
-        } else {
-            hudElem.classList.remove("hide");
-            hudElem2.classList.remove("hide");
-	        // hudElem.style.display = 'inline-block'; // show when target lost
-	        // hudElem2.style.display = 'inline-block'; // hide when target seen
-            contentRoot.pause();
-        }
-    });
-
-    arScene.addEventListener('target_trigger', function(evt) {
-        console.log("TRIGGER: " + (evt.detail.inside ? "ENTERED" : "EXITED"));
-    });
-});
-arScene.addEventListener('argon-vuforia-dataset-load-failed', function(evt) {
-    statusMsg.innerHTML = "vuforia failed to load: " + evt.detail.error.message;
-});
-
-arScene.addEventListener('argon-vuforia-not-available', function(evt) {
-    frame.setAttribute("trackvisibility", false);
-    frame.setAttribute("visible", true);
-    frame.setAttribute("parent", "ar.stage");
-//    content.setAttribute("rotation", {x: -90, y: 0, z: 0});
-    content.setAttribute("position", {x: 0, y: 0, z: -5});
-    content.setAttribute("scale", {x: 20, y: 20, z: 20});
-
-    contentRoot.setAttribute("rotation", { x: 0, y: -90, z:0 });
-
-    hudElem.innerHTML = "No Vuforia. Showing scene that would be on the target."
-    hudElem2.innerHTML = "No Vuforia. Showing scene that would be on the target."
-    arScene.hud.appendChild(hudElem, hudElem2);
-
-    statusMsg.innerHTML = "done";
-    loader.classList.add('loaded');
-    contentRoot.play();
-});
-
-arScene.addEventListener('enter-vr', function (evt) {
-    hudElem.classList.add("viewerMode");
-    hudElem2.classList.add("viewerMode");
-});
-arScene.addEventListener('exit-vr', function (evt) {
-    hudElem.classList.remove("viewerMode");
-    hudElem2.classList.remove("viewerMode");
-});
-
+function showQRIntro() {
+    return confirm("Very Camera. So QR scanner. Now Open."); //Just a notice before it opens the camera. Not sure if it is really needed but it is a nice courtesy. 
+};

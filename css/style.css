@@ -1,0 +1,365 @@
+html {
+    background-color: #F2F2F2;
+}
+
+body {
+    background-color: #F2F2F2;
+    font-family: 'Short Stack', sans-serif;
+}
+
+#app {
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+}
+
+.dogeContent{
+    position:relative;
+    margin-top:3.5em;
+    
+}
+
+.navDoge {
+    position: fixed;
+    width: 100%;
+    background-color: #E8922D;
+    text-align: center;
+    vertical-align: middle;
+    height: 60px;
+    cursor: pointer;
+    z-index: 100;
+
+}
+
+.exchangeDoge {
+    font-family: 'Open Sans Condensed', sans-serif;
+    position: fixed;
+    top:4em;
+    width: 100%;
+    height: 7em;
+    background-color: #EBB069;
+    padding-bottom: 4em;
+    font-size: 0.8em;
+    color: white;
+    z-index: 99;
+}
+
+.exchangeDoge p {
+    margin-bottom: -0.8em;
+    padding-top: 0.3em;
+
+}
+
+.exchangeDoge h1 {
+    font-size: 2em;
+    display: inline-block;
+    margin-bottom: -6em;
+}
+
+.exchangeDoge h2 {
+    display: inline-block;
+    font-size: 2em;
+}
+
+.BGClose {
+    position: absolute;
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    z-index: 40;
+    opacity: 0;
+}
+
+.dogeBurger {
+    font-size: 3em;
+    cursor: pointer;
+
+}
+
+.dogeClose {
+    float: right;
+    padding-right: 1em;
+    font-size: 3em;
+    cursor: pointer;
+}
+
+.currencyMenu {
+    position: absolute;
+    top: 9em;
+    background-color: #FFCE99;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    z-index: 98;
+    text-align: center;
+    transition-duration: 0s
+}
+
+.currencyMenu p {
+    color: black;
+    padding-left: 1em;
+    padding-top: 1em;
+
+}
+
+.currencyMenu li {
+    cursor: pointer;
+    color: #E8922D;
+    ;
+    font-size: 1.5em;
+    font-weight: 600;
+
+}
+
+.currencyMenu li:hover {
+    background-color: #f2f2f2;
+    transition: 0.3s;
+
+}
+
+.menu-list .field {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.currencyForm {
+    width: 80%
+}
+
+.currencySearch {
+    width: 20%;
+
+
+}
+
+.footer {
+    background-color: #E8922D;
+}
+
+.dogeIcon {
+    max-height: 40px;
+    max-width: 40px;
+    margin-top: 10px;
+}
+
+.addressForm {
+    animation-delay: 0.5s;
+
+}
+
+.dogeButton {
+    font-family: 'Short Stack', sans-serif;
+    font-size: 2rem;
+    background-color: #E8922D;
+    color: #F2F2F2;
+    width: 85%;
+    height: 8vh;
+    padding: 0;
+    margin: 0;
+    border-radius: 0.5rem;
+}
+
+.dogeButton:hover {
+    background-color: #AA6622;
+    color: #F2F2F2;
+}
+
+.dogeInput {
+    font-family: 'Short Stack', sans-serif;
+    width: 90%;
+}
+
+.titleDoge {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #F2F2F2;
+}
+
+.dogeCoinImage {
+    padding-top: 1rem;
+    animation-delay: 0.25s;
+    cursor: pointer;
+}
+
+wow {
+    vertical-align: super;
+    padding-left: 1rem;
+    padding-right: 1rem
+}
+
+a-scene {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 200;
+}
+
+#VRDoge {
+    visibility: hidden;
+}
+
+#ARDoge {
+    display: none;
+}
+
+.title {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 100;
+    font-size: 4em;
+    cursor: pointer;
+    color: #E8922D;
+}
+
+.subtitleDoge {
+    font-size: 0.6em;
+}
+
+.columns .dogeButton {
+    margin-top: -0.8em;
+}
+
+.button {
+    padding: 0;
+}
+
+body,
+input {
+    font-size: 14pt;
+}
+
+input,
+label {
+    vertical-align: middle;
+}
+
+.qrcode-text {
+    width: 90%;
+    height: 2.5em;
+    padding-left: 0.5em;
+    border-radius: 0.3em;
+}
+
+.qrcode-text-btn {
+    display: inline-block;
+    background: url(//dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg) 50% 50% no-repeat;
+    height: 2em;
+    width: 1.7em;
+    margin-left: -2.5em;
+    cursor: pointer
+}
+
+.qrcode-text-btn > input[type=file] {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    opacity: 0
+}
+
+.visAddress a {
+    font-size: 0.7em;
+    color: #E8922D;
+}
+
+.bottomNav {
+    background-color: #E8922D;
+    animation-delay: 1s;
+    z-index: 1;
+}
+
+.bottomNav a {
+    padding-top: 0.2em;
+}
+
+.navButton {
+    background-color: #E8922D;
+    color: white;
+    font-size: 1em;
+    border: 6px;
+}
+
+.navButton:hover {
+    background-color: #AA6622;
+    color: white;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 900px) {
+    .navButton {
+        background-color: #E8922D;
+        color: white;
+        width: 33%;
+        font-size: 1em;
+        text-align: center;
+    }
+    .navButton h3 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.modal {
+    display: flex;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8em;
+    z-index: 101;
+}
+
+.modal-background {
+    opacity: 0;
+}
+
+.modal h1 {
+    font-family: 'Short Stack', sans-serif;
+    font-size: 1.5em;
+}
+
+.modal h2 {
+    font-family: 'Short Stack', sans-serif;
+    display: inline-block;
+}
+
+.strike {
+    text-decoration: line-through;
+}
+
+.modal p {
+    margin-top: 1em;
+    font-size: 0.8em;
+}
+
+.modal li {
+    margin-top: 1em;
+    font-size: 0.8em;
+}
+
+.modal i {
+    font-size: 2em;
+    padding: 0.5em;
+}
+
+.fadeInUp {
+    transition-duration: 0.3s;
+}
+
+.fadeOutUp {
+    transition-duration: 0.3s;
+}
+
+.fadeInDown {
+    transition-duration: 0.3s;
+}
+
+.fadeOutDown {
+    transition-duration: 0.3s;
+}
+
+.fade {
+    transition-duration: 0.3s;
+}

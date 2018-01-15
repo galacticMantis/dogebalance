@@ -1,10 +1,10 @@
 # Doge Balance
 
-![Dogecoin AR Target](https://galacticmantis.github.io/dogebalance/images/dogecoin1.png)
+![Dogecoin AR Target](https://raw.githubusercontent.com/galacticMantis/dogecoinbalance/master/images/dogeBalanceAnim.gif)
 
 This is a web based Dogecoin balance checker hosted on Github. It gives you a simple and easy way to check your dogecoin balance on your phone. What is special about this is that it also lets you check your balance in Virtual and Augmented Reality! 
 
-Basically what it does is uses the dogechain.info API to retrieve your balance and QR code from dogecoin.info. Then it displays that balance through various methods.
+Basically what it does is uses the dogechain.info API to retrieve your balance and QR code. For current exchange rates it uses the Cryptonator.com API.
 
 //Features//
 1. Easily check your dogecoin balance
@@ -13,6 +13,7 @@ Basically what it does is uses the dogechain.info API to retrieve your balance a
 4. View your dogecoin in Augmented Reality or Virtual Reality!
 5. Tap the Shibe's face to see your QR code.
 6. Tap your balance to see decimals if there are any.
+7. 1Đ will always be 1D but if for some reason you want to check the current exchange rate tap the top bar to open the panel. Tap that panel to choose or enter a currency.
 
 
 //Directions//
