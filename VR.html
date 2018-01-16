@@ -30,27 +30,24 @@
                         <a-animation attribute="rotation" dur="500000" fill="forwards" to="360 0 0" easing="linear" repeat="indefinite"></a-animation>
                     </a-sphere>
 
+                       <a-entity scale="0.5 0.5 0.5" rotation="-90 0 0">
+                <a-sphere position='0 0.5 0' material='color: white; src:#moonSurface;'>
+                    <a-animation attribute="rotation" dur="50000" fill="both" to="0 0 360" easing="linear" repeat="indefinite"></a-animation>
+                </a-sphere>
 
-                    <a-sphere id="theMountains" material="src: #mountains; side: back; transparent: true;" radius="450;" opacity="1;">
-                    </a-sphere>
+                <a-cylinder id="LargeDogeCoin" rotation="0 -178 0" position="0 0 2.152" material="src:#dogeCoinImg; color:gold; metalness:0.2;" height="0.1" radius="1" scale="1 1 1" visible="true">
+                    <a-animation attribute="rotation" dur="5000" fill="both" to="0 -178 360" easing="linear" repeat="indefinite"></a-animation>
+                </a-cylinder>
 
-                    <a-sphere id="earth" rotation="360 0 0" position="-170 280 -3" material="height:0.1;src:#earthMap;color:white;metalness:0" height="0.1" radius="50" scale="1 1 1">
-                        <a-animation data-brackets-id="19270" attribute="rotation" dur="900000" fill="both" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
-                    </a-sphere>
+                <a-text id="VRBalance" align="center" position="0.103 -0.925 0.826" rotation="61.822146094615825 0 0" height="1" width="2" value="CURRENT BALANCE" scale="1 1 1" visible="true"></a-text>
 
-                    <a-cylinder id="LargeDogeCoin" rotation='90 0 0' position='0 2.21 -3' material="src: #dogeCoinImg; color: gold; metalness:0.2;" height="0.1" radius="1">
-                        <a-animation attribute="rotation" dur="5000" fill="both" to="90 0 360" easing="linear" repeat="indefinite"></a-animation>
-                    </a-cylinder>
+                <a-text id="VRDogeBalance" align="center" position="0.155 -1.065 0.666" rotation="64.74423084978302 0 0" value="1000000000000000" scale="1 1 1" visible="true"></a-text>
 
-                    <a-entity position="0 1.43 -4">
-                        <a-text id="VRBalance" material="metalness:0;" align='center' position="0 -0.45 1.4" rotation="-13 0 0" height="1" width="2" value="CURRENT BALANCE"></a-text>
-
-                        <a-text id="VRDogeBalance" color="yellow" align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balanceRaw + ' DOGE'"></a-text>
-
-                        <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr"></a-text>
-                    </a-entity>
-                    <a-image id="Ground" height="120" width="240" rotation="90 0 0" position="0 0 0" src="#moonSurface"></a-image>
-           
+                <a-text id="VRAddr" align="center" position="0.129 -1.167 0.479" rotation="48.930595704172305 0 0" height="1" width="2" value="D3544344243254326265646436456453" scale="1 1 1" visible="true"></a-text>
+                           
+                <a-text id="1D-is-1D" align="center" position="0.155 1.59 0.666" rotation="-63.8 -14.7 -163.694" value="1D = 1D" scale="1 1 1" visible="true"></a-text>
+            </a-entity>
+       
             </a-scene>
 
 </body>

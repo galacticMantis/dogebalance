@@ -33,6 +33,8 @@
                 <a-text id="VRDogeBalance" align="center" position="0.155 -1.065 0.666" rotation="64.74423084978302 0 0" value="" scale="1 1 1" visible="true"></a-text>
 
                 <a-text id="VRAddr" align="center" position="0.129 -1.167 0.479" rotation="48.930595704172305 0 0" height="1" width="2" value="" scale="1 1 1" visible="true"></a-text>
+                
+                <a-text id="1Dis1D" align="center" position="0.155 1.59 0.666" rotation="-63.8 -14.7 -163.694" value="1D = 1D" scale="1 1 1" visible="true"></a-text>
             </a-entity>
         </a-marker>
         <a-entity camera></a-entity>
@@ -41,8 +43,11 @@
     <script>
         var userAdd = localStorage.getItem("userAddr");
         var userBal = localStorage.getItem("userBalance");
+        var exchange = localStorage.getItem("exchangeRate");
+        var currencyChoice = localStorage.getItem("currency");
         document.getElementById("VRAddr").setAttribute("value", userAdd);
         document.getElementById("VRDogeBalance").setAttribute("value", userBal + ' DOGE');
+        document.getElementById("1Dis1D").setAttribute("value", '1D  = ' + exchange + currencyChoice);
     </script>
 </body>
 
