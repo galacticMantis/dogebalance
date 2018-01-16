@@ -33,6 +33,7 @@ var vm = new Vue({
         showModal: false,
         showConversion: false,
         showCurrencies: false,
+        intBalance: ''
 
     },
     created: function () {
@@ -49,6 +50,7 @@ var vm = new Vue({
                     var longBal = parseFloat(response.data['balance']); //Long Balance
                     var a = numeral(shortBal).format('0,0');
                     var b = numeral(longBal).format('0,0.00000000');
+                    vm.intBalance = longBal;
                     vm.balance = a + ' Đ';
                     vm.balanceRaw = b + ' Đ';
                     vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
@@ -65,8 +67,10 @@ var vm = new Vue({
 
 
         dogeExchange: function () { //Checks exchange rate
+            var vm = this;     
+            if (vm.country != 'doge'){ //If country isn't doge don't do this.
             dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
-            var vm = this;
+
             axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
                     var dPrice = response.data.ticker['price']; //Doge Price
                     var dCurrency = response.data.ticker['target']; //Doge Target Currency
@@ -79,7 +83,7 @@ var vm = new Vue({
                 .catch(function (error) {
                     vm.dogeExchangeRate = 'Much Error...';
                 })
-
+};
         },
 
         dogeCountry: function () {
@@ -87,13 +91,6 @@ var vm = new Vue({
             vm.dogeTargetCurrency = ''
             vm.dogeConversion = vm.balance;
         },
-
-        convertDoge: function () {
-            var balance = parseFloat(vm.balanceRaw);
-            var balanceConverted = balance * vm.dogeExchangeRate;
-            vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
-        },
-
 
         getCurrency: function () {
             vm.country = document.getElementById('currencyInput').value
@@ -127,6 +124,7 @@ var vm = new Vue({
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
+                        vm.intBalance = longBal;
                         vm.balance = a + ' Đ';
                         vm.balanceRaw = b + ' Đ';
                         vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
@@ -149,6 +147,7 @@ var vm = new Vue({
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
+                        vm.intBalance = longBal;
                         vm.balance = a + ' Đ';
                         vm.balanceRaw = b + ' Đ';
                         vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
@@ -189,6 +188,12 @@ var vm = new Vue({
             var copyText = vm.visibleAddr;
             window.clipboardData.setData("Text", input.val());
             alert("Copied the text: " + copyText.value);
+        },
+        
+            convertDoge: function () {
+            var balance = parseFloat(vm.intBalance);
+            var balanceConverted = balance * vm.dogeExchangeRate;
+            vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
         },
 
 

@@ -125,8 +125,8 @@
                 </p>
                 <ul class="menu-list">
                     <li @click="country = ('doge'), dogeCountry(), showCurrencies = false">DOGE</li>
-                    <li @click="country = ('usd'), dogeExchange(), showCurrencies = false">USD</li>
-                    <li @click="country = ('eur'), dogeExchange(), showCurrencies = false">EUR</li>
+                    <li @click="country = ('usd'), dogeExchange(), convertDoge(), showCurrencies = false">USD</li>
+                    <li @click="country = ('eur'), dogeExchange(), convertDoge(), showCurrencies = false">EUR</li>
                     <br>
                     <div class="field has-addons">
                         <div class="control currencyForm">
@@ -179,7 +179,7 @@
                     <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered">
                         <br>
                         <div class="buttons has-addons is-centered">
-                            <button class="button is-large dogeButton" is-warning @click="dogeBalance(); dogeQR(); dogeVisibleAddr(); dogeClearAddr();">Find my Đoge</button>
+                            <button class="button is-large dogeButton" is-warning @click="dogeBalance(); dogeQR(); dogeVisibleAddr(); dogeExchange(); convertDoge(); dogeClearAddr();">Find my Đoge</button>
                         </div>
                     </div>
                 </div>
