@@ -57,6 +57,7 @@ var vm = new Vue({
                     vm.visibleAddr = dogeAddr;
                     vm.dogeConversion = b;
                     localStorage.setItem("userBalance", b);
+                    vm.convertDoge();
                 })
                 .catch(function (error) {
                     vm.balance = 'Much error...';
