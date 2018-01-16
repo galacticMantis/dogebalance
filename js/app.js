@@ -7,6 +7,13 @@
 //I also thought it would be fun to have VR and AR versions of a dogecoin balance checker.
 //I'm sure everything can be optimized and made a lot better but the point is that it works!
 
+
+//localStorage variables
+//userBalance = How much doge the user has
+//userAddr = The last address the user checked
+//exchangeRate = Current price of 1 doge
+//currency = the selected currency exchange
+
 Vue.component('modal', {
     template: '#modal-template'
 })
@@ -68,23 +75,23 @@ var vm = new Vue({
 
 
         dogeExchange: function () { //Checks exchange rate
-            var vm = this;     
-            if (vm.country != 'doge'){ //If country isn't doge don't do this.
-            dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
+            var vm = this;
+            if (vm.country != 'doge') { //If country isn't doge don't do this.
+                dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
 
-            axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
-                    var dPrice = response.data.ticker['price']; //Doge Price
-                    var dCurrency = response.data.ticker['target']; //Doge Target Currency
-                    vm.dogeExchangeRate = dPrice;
-                    vm.dogeTargetCurrency = dCurrency;
-                    localStorage.setItem("exchangeRate", dPrice);
-                    localStorage.setItem("currency", dCurrency);
-                    vm.convertDoge();
-                })
-                .catch(function (error) {
-                    vm.dogeExchangeRate = 'Much Error...';
-                })
-};
+                axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
+                        var dPrice = response.data.ticker['price']; //Doge Price
+                        var dCurrency = response.data.ticker['target']; //Doge Target Currency
+                        vm.dogeExchangeRate = dPrice;
+                        vm.dogeTargetCurrency = dCurrency;
+                        localStorage.setItem("exchangeRate", dPrice);
+                        localStorage.setItem("currency", dCurrency);
+                        vm.convertDoge();
+                    })
+                    .catch(function (error) {
+                        vm.dogeExchangeRate = 'Much Error...';
+                    })
+            };
         },
 
         dogeCountry: function () {
@@ -116,7 +123,7 @@ var vm = new Vue({
 
 
         dogeDefault: function () { //performs the same functions as above but with default values in place.
-            if (localStorage.getItem("userAddr") === null || ''){ //hollyy woww. I can't believe I actually got this working! Checks if the user has entered an address before. If they have it reloads from local storage!
+            if (localStorage.getItem("userAddr") === null || '') { //hollyy woww. I can't believe I actually got this working! Checks if the user has entered an address before. If they have it reloads from local storage!
                 this.balance = 'loading...';
                 dogeAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
                 var vm = this;
@@ -142,7 +149,7 @@ var vm = new Vue({
             } else {
                 this.balance = 'loading...';
                 var dogeAddr = localStorage.getItem("userAddr");
-                var vm = this;  
+                var vm = this;
                 axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
                         var shortBal = parseInt(response.data['balance']); //Short Balance
                         var longBal = parseFloat(response.data['balance']); //Long Balance
@@ -190,13 +197,17 @@ var vm = new Vue({
             window.clipboardData.setData("Text", input.val());
             alert("Copied the text: " + copyText.value);
         },
-        
-            convertDoge: function () {
+
+        convertDoge: function () {
             var balance = parseFloat(vm.intBalance);
             var balanceConverted = balance * vm.dogeExchangeRate;
-            vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+            
+            if (vm.country === 'usd' || vm.country === 'eur' || vm.country === 'gbp' || vm.country === 'aud'){
+                vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+            }else {
+                vm.dogeConversion = numeral(balanceConverted).format('0,0.0000000');
+            }
         },
-
 
 
     }
@@ -231,3 +242,11 @@ function openQRCamera(node) { //Opens the camera or file explorer to get a pictu
 function showQRIntro() {
     return confirm("Very Camera. So QR scanner. Now Open."); //Just a notice before it opens the camera. Not sure if it is really needed but it is a nice courtesy. 
 };
+
+
+function updatePrices(){ //This runs the DogeExchange function every 35 seconds to keep the price updated.
+    vm.dogeExchange();
+}
+
+setInterval(function(){
+    updatePrices()}, 35000);
