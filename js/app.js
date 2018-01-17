@@ -126,12 +126,14 @@ var vm = new Vue({
             if (localStorage.getItem("userAddr") === null || '') { //hollyy woww. I can't believe I actually got this working! Checks if the user has entered an address before. If they have it reloads from local storage!
                 this.balance = 'loading...';
                 dogeAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                localStorage.setItem("userAddr", dogeAddr);
                 var vm = this;
                 axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
                         var shortBal = parseInt(response.data['balance']); //Short Balance
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
+                        localStorage.setItem("userBalance", b);
                         vm.intBalance = longBal;
                         vm.balance = a + ' Đ';
                         vm.balanceRaw = b + ' Đ';
@@ -149,12 +151,14 @@ var vm = new Vue({
             } else {
                 this.balance = 'loading...';
                 var dogeAddr = localStorage.getItem("userAddr");
+                localStorage.setItem("userAddr", dogeAddr);
                 var vm = this;
                 axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
                         var shortBal = parseInt(response.data['balance']); //Short Balance
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
+                        localStorage.setItem("userBalance", b);
                         vm.intBalance = longBal;
                         vm.balance = a + ' Đ';
                         vm.balanceRaw = b + ' Đ';
