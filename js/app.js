@@ -98,8 +98,6 @@ var vm = new Vue({
             vm.dogeExchangeRate = "1Đ";
             vm.dogeTargetCurrency = ''
             vm.dogeConversion = vm.balance;
-            localStorage.setItem("exchangeRate", '1');
-            localStorage.setItem("currency", 'Đ');
         },
 
         getCurrency: function () {
