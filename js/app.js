@@ -40,18 +40,60 @@ var vm = new Vue({
         showModal: false,
         showConversion: false,
         showCurrencies: false,
-        intBalance: ''
+        showPrevAddrMenu: false,
+        intBalance: '',
+        slot1: localStorage.getItem("slot1"),
+        slot2: localStorage.getItem("slot2"),
+        slot3: localStorage.getItem("slot3"),
 
     },
     created: function () {
         this.dogeDefault(); //Gets the information for my default address to fill in everything.
     },
+
     methods: {
 
         dogeBalance: function () { //Checks balance for dogeaddress.
-            this.balance = 'loading...';
+
             dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
+            localStorage.setItem("userAddr", document.getElementById('input').value);
             var vm = this;
+            axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
+                var successAddress = response.data['success'];
+                    var shortBal = parseInt(response.data['balance']); //Short Balance
+                    var longBal = parseFloat(response.data['balance']); //Long Balance
+                
+                if (successAddress == 1){
+                    var a = numeral(shortBal).format('0,0');
+                    var b = numeral(longBal).format('0,0.00000000');
+                    vm.intBalance = longBal;
+                    vm.balance = a + ' Đ';
+                    vm.balanceRaw = b + ' Đ';
+                    vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
+                    vm.dogeConversion = b;
+                    localStorage.setItem("userBalance", b);
+                    vm.previousAddress();
+                    vm.convertDoge();
+                    }
+
+                })
+                .catch(function (error) {
+                    alert('Such Invalid Address...');
+                    if (localStorage.getItem("slot1") != null) {//Slot1 is not empty
+                        vm.visibleAddr = localStorage.getItem("slot1");
+                        localStorage.setItem("userAddr", localStorage.getItem("slot1"));
+                        vm.slot1 = localStorage.getItem("slot1");
+                        vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + vm.visibleAddr;
+                    } else {
+                        vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                    }
+                })
+        },
+
+        previousAddressBalance: function () { //Checks balance for dogeaddress.
+            this.balance = 'loading...';
+            var vm = this;
+            var dogeAddr = vm.visibleAddr;
             axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
                     var shortBal = parseInt(response.data['balance']); //Short Balance
                     var longBal = parseFloat(response.data['balance']); //Long Balance
@@ -65,11 +107,15 @@ var vm = new Vue({
                     vm.dogeConversion = b;
                     localStorage.setItem("userBalance", b);
                     vm.convertDoge();
+
                 })
                 .catch(function (error) {
-                    vm.balance = 'Much error...';
-                    alert('Such Invalid Address...');
-                    localStorage.setItem("userBalance", null);
+                if (localStorage.getItem("slot1") != null) {
+                        vm.visibleAddr = localStorage.getItem("slot1");
+                    } else {
+                        vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                        localStorage.setItem("userBalance", null);
+                    }
                 })
         },
 
@@ -77,8 +123,6 @@ var vm = new Vue({
         dogeExchange: function () { //Checks exchange rate
             var vm = this;
             if (vm.country != 'doge') { //If country isn't doge don't do this.
-                dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
-
                 axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
                         var dPrice = response.data.ticker['price']; //Doge Price
                         var dCurrency = response.data.ticker['target']; //Doge Target Currency
@@ -91,7 +135,9 @@ var vm = new Vue({
                     .catch(function (error) {
                         vm.dogeExchangeRate = 'Much Error...';
                     })
-            };
+            } else {
+                vm.dogeCountry();
+            }
         },
 
         dogeCountry: function () {
@@ -126,7 +172,6 @@ var vm = new Vue({
             if (localStorage.getItem("userAddr") === null || '') { //hollyy woww. I can't believe I actually got this working! Checks if the user has entered an address before. If they have it reloads from local storage!
                 this.balance = 'loading...';
                 dogeAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
-                localStorage.setItem("userAddr", dogeAddr);
                 var vm = this;
                 axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
                         var shortBal = parseInt(response.data['balance']); //Short Balance
@@ -158,7 +203,6 @@ var vm = new Vue({
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
-                        localStorage.setItem("userBalance", b);
                         vm.intBalance = longBal;
                         vm.balance = a + ' Đ';
                         vm.balanceRaw = b + ' Đ';
@@ -166,6 +210,7 @@ var vm = new Vue({
                         vm.visibleAddr = dogeAddr;
                         vm.dogeConversion = b;
                         vm.dogeCountry();
+                        localStorage.setItem("userBalance", b);
 
 
                     })
@@ -180,12 +225,39 @@ var vm = new Vue({
             dogeAddr = document.getElementById('input').value
             var vm = this;
             vm.visibleAddr = dogeAddr;
-            localStorage.setItem("userAddr", dogeAddr);
+            
         },
 
 
         dogeClearAddr: function () { //Clears the form after pressing main button.
             this.addr = '';
+        },
+
+
+        showConversionMenu: function () { //Clears the form after pressing main button.
+            if (vm.showConversion === false) {
+                vm.showConversion = true;
+            } else {
+                vm.showConversion = false;
+                vm.showCurrencies = false;
+            }
+        },
+
+        showCurrenciesMenu: function () { //Clears the form after pressing main button.
+            if (vm.showCurrencies === false) {
+                vm.showCurrencies = true;
+            } else {
+                vm.showCurrencies = false;
+            }
+        },
+
+
+        showPreviousAddressMenu: function () { //Clears the form after pressing main button.
+            if (vm.showPrevAddrMenu === false) {
+                vm.showPrevAddrMenu = true;
+            } else {
+                vm.showPrevAddrMenu = false;
+            }
         },
 
         startVR: function () { //Unhides the VR scene and makes it full screen.
@@ -205,18 +277,72 @@ var vm = new Vue({
         convertDoge: function () {
             var balance = parseFloat(vm.intBalance);
             var balanceConverted = balance * vm.dogeExchangeRate;
-            
-            if (vm.country === 'usd' || vm.country === 'eur' || vm.country === 'gbp' || vm.country === 'aud'){
-                vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
-            }else {
-                vm.dogeConversion = numeral(balanceConverted).format('0,0.0000000');
+            if (vm.country === 'doge') {
+                vm.dogeConversion = vm.balance
+            } else {
+                if (vm.country === 'usd' || vm.country === 'eur' || vm.country === 'gbp' || vm.country === 'aud') {
+                    vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+                } else {
+                    vm.dogeConversion = numeral(balanceConverted).format('0,0.0000000');
+                }
             }
         },
 
+        previousAddress: function () {
+
+            if (localStorage.getItem("userAddr") != null || '') { //UserAddr is not empty.
+                if (localStorage.getItem("slot1") === null || '') { //slot 1 is empty
+                    localStorage.setItem("slot1", localStorage.getItem("userAddr")); //Then set slot 1 to current address
+                    vm.slot1 = localStorage.getItem("userAddr");
+                    vm.slot2 = '';
+                    vm.slot3 = '';
+                    localStorage.setItem("userAddr", vm.visibleAddr);
+                } else { //Slot 1 is NOT empty. Check slot 2.
+
+                    if (localStorage.getItem("slot2") === null || '') { //slot 2 is empty.
+                        localStorage.setItem("slot2", localStorage.getItem("slot1")); //Then set to previous address
+                        localStorage.setItem("slot1", vm.visibleAddr); //Then set slot 1 to current address
+                        vm.slot1 = localStorage.getItem("slot1");
+                        vm.slot2 = localStorage.getItem("slot2");
+                        vm.slot3 = '';
+                        localStorage.setItem("userAddr", vm.visibleAddr);
+                    } else { //slot 2 is not empty. Check slot 3.
+
+                        if (localStorage.getItem("slot3") === null || '') { //slot 3 is empty?
+                            localStorage.setItem("slot3", localStorage.getItem("slot2")); //Then set slot 2 to slot 3 address
+                            localStorage.setItem("slot2", localStorage.getItem("slot1")); //Then slot 1 to slot 2 address
+                            localStorage.setItem("slot1", vm.visibleAddr); //Then set slot 1 to current address
+                            vm.slot1 = localStorage.getItem("slot1");
+                            vm.slot2 = localStorage.getItem("slot2");
+                            vm.slot3 = localStorage.getItem("slot3");
+                            localStorage.setItem("userAddr", vm.visibleAddr);
+                        } else { //Slot 3 is not empty. My brain is starting to collapse.
+                            localStorage.setItem("slot3", localStorage.getItem("slot2")); //Then set slot 2 to slot 3 address
+                            localStorage.setItem("slot2", localStorage.getItem("slot1")); //Then slot 1 to slot 2 address
+                            localStorage.setItem("slot1", vm.visibleAddr); //Then set slot 1 to current address
+                            vm.slot1 = localStorage.getItem("slot1");
+                            vm.slot2 = localStorage.getItem("slot2");
+                            vm.slot3 = localStorage.getItem("slot3");
+                            localStorage.setItem("userAddr", vm.visibleAddr);
+
+                        } //slot 3 else
+
+                    } //slot 2 else
+
+                } //slot 1 else
+
+            } else { //If it is empty then do this
+                alert('is EMPTY OMG');
+                localStorage.setItem("userAddr", document.getElementById('input').value);
+                localStorage.setItem("slot1", document.getElementById('input').value);
+                vm.slot1 = localStorage.getItem("slot1");
+            }      
+        },
 
     }
 
 });
+
 
 function confirmAR() {
     var response = confirm("AR mode requires you to be using a mobile browser. Safari for iOS11 and Chrome for Android. You'll also need to download the target image from the info tab. Press OK to continue.");
@@ -248,9 +374,10 @@ function showQRIntro() {
 };
 
 
-function updatePrices(){ //This runs the DogeExchange function every 35 seconds to keep the price updated.
+function updatePrices() { //This runs the DogeExchange function every 35 seconds to keep the price updated.
     vm.dogeExchange();
 }
 
-setInterval(function(){
-    updatePrices()}, 35000);
+setInterval(function () {
+    updatePrices()
+}, 35000);

@@ -88,13 +88,17 @@
                     <a-text id="VRDogeBalance" color="yellow" align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balanceRaw + ' DOGE'"></a-text>
 
                     <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr"></a-text>
+
+                    <a-text id="1Dis1DVR" align="center" position="0.1 3 0.332" rotation="0 0 0" v-bind:value="'1D = ' + dogeExchangeRate + country" scale="1 1 1" visible="true"></a-text>
+
                 </a-entity>
                 <a-image id="Ground" height="50" width="150" rotation="90 0 0" position="0 0 0" src="#moonSurface"></a-image>
             </a-scene>
         </div>
         <!--This is where the VR ends-->
-        <div class="BGClose" v-if="showConversion" @click="showConversion = false, showCurrencies = false"></div>
-        <nav class="navDoge fadeInDown" role="navigation" aria-label="main navigation" @click="showConversion = true">
+        <div class="BGClose" v-if="showConversion" @click="showCurrenciesMenu(), showConversionMenu()"></div>
+        <div class="previousAddressBGClose" v-if="showPrevAddrMenu" @click="showPreviousAddressMenu()"></div>
+        <nav class="navDoge fadeInDown" role="navigation" aria-label="main navigation" @click="showConversionMenu()">
             <div class="titleDoge">
                 <wow>DOGECOIN</wow> <img alt="Flat Dogecoin Image" class="dogeIcon" src="images/dogeIcon.png">
                 <wow>BALANCE</wow>
@@ -102,7 +106,7 @@
         </nav>
 
         <transition name="fade" enter-active-class="fadeInDown" leave-active-class="fadeOutUp">
-            <nav class="navDoge exchangeDoge" role="navigation" aria-label="main navigation" v-if="showConversion" @close="showConversion = false" @click="showCurrencies = true">
+            <nav class="navDoge exchangeDoge" role="navigation" aria-label="main navigation" v-if="showConversion" @click="showCurrenciesMenu()">
                 <div class="currentInfo">
 
                     <div class="has-text-centered">
@@ -111,8 +115,7 @@
                         <h1>{{ dogeExchangeRate }} {{ dogeTargetCurrency }}</h1>
                     </div>
 
-                    <div class="has-text-centered currentExchangeRate">Your Balance: {{ dogeConversion }}{{ dogeTargetCurrency }}<br><span class="icon dogeBurger" @click="showCurrencies = true"><i class="mdi mdi-chevron-down"></i></span></div><br><br>
-
+                    <div class="has-text-centered currentExchangeRate">Your Balance: {{ dogeConversion }}{{ dogeTargetCurrency }}<br><span class="icon dogeBurger" @click="showCurrenciesMenu()"><i @click="showCurrenciesMenu()" class="mdi mdi-chevron-down"></i></span></div>
 
                 </div>
             </nav>
@@ -128,7 +131,7 @@
                     <li @click="country = ('usd'), dogeExchange(), convertDoge(), showCurrencies = false">USD</li>
                     <li @click="country = ('eur'), dogeExchange(), convertDoge(), showCurrencies = false">EUR</li>
                     <br>
-                    <div class="field has-addons">
+                    <div class="field has-addons column is-half-desktop">
                         <div class="control currencyForm">
                             <input class="input" type="text" id="currencyInput" placeholder="Enter Currency Code" @keyup.enter="getCurrency(), dogeExchange(), showCurrencies = false">
                         </div>
@@ -138,8 +141,6 @@
                             </a>
                         </div>
                     </div>
-
-                    <br>
                 </ul>
             </aside>
         </transition>
@@ -149,16 +150,30 @@
             <div class="columns is-mobile">
 
                 <div class="column is-half is-offset-one-quarter has-text-centered dogeCoinImage bounceIn">
-                    <img alt="QR code" height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
-                    <img alt="Dogecoin image" height="200px;" width="200px" class="mainImg" v-else :src="dogeCoinImg" @click="QRisActive = !QRisActive"></div>
+                    <transition name="fade" mode="out-in">
+                        <div key="1" v-if="QRisActive">
+                            <img alt="QR code" height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
+                        </div>
+
+                        <div key="2" v-if="!QRisActive">
+                            <img alt="Dogecoin image" height="200px;" width="200px" class="mainImg" :src="dogeCoinImg" @click="QRisActive = !QRisActive">
+                        </div>
+                    </transition>
+                </div>
             </div>
             <div class="addressForm fadeIn">
                 <div class="columns is-mobile">
 
                     <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered is-paddingless subtitleDoge">Current Balance
                         <br>
-                        <div v-if="isRaw" @click="isRaw = !isRaw" class="title count">{{ balance }}</div>
-                        <div v-else @click="isRaw = !isRaw" class="title">{{ balanceRaw }}</div>
+                        <transition name="fade" mode="out-in">
+                            <div key="1" v-if="isRaw">
+                                <div @click="isRaw = !isRaw" class="title count">{{ balance }}</div>
+                            </div>
+                            <div key="2" v-if="!isRaw">
+                                <div @click="isRaw = !isRaw" class="title">{{ balanceRaw }}</div>
+                            </div>
+                        </transition>
                     </div>
                 </div>
 
@@ -172,7 +187,16 @@
                     </div>
                 </div>
 
-                <div class="has-text-centered visAddress"><a :href="'https://dogechain.info/address/' + visibleAddr" target="_blank">{{ visibleAddr }} </a>
+                <div class="has-text-centered visAddress"><a @click="showPreviousAddressMenu">{{ visibleAddr }} </a>
+                    <div v-if="showPrevAddrMenu" v-click-outside="showPreviousAddressMenu" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
+                        <p>Previous Addresses</p>
+                        <ul>
+                            <li v-if="slot1" @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
+                            <li v-if="slot2" @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
+                            <li v-if="slot3" @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot3 }}</li>
+                        </ul>
+
+                    </div>
                 </div>
 
                 <div class="columns is-mobile">
@@ -234,7 +258,7 @@
                             <li>6. If you tap your balance it'll switch between decimal and non-decimal mode.</li>
                             <li>7. If you tap the Shibe's face it'll show you your QR code.</li>
                             <li>8. The app will save your Public Address so that your balance will pop up automatically next time!(hopefully)</li>
-                            <li>9.  1Đ will always be 1Đ but if for some reason you want to check the current exchange rate tap the top bar to open the panel. Tap that panel to choose or enter a currency.</li>
+                            <li>9. 1Đ will always be 1Đ but if for some reason you want to check the current exchange rate tap the top bar to open the panel. Tap that panel to choose or enter a currency.</li>
                             <li>10. The currency rate you choose will refresh automatically every 35 seconds.</li>
                         </ul>
                         <br>
@@ -272,7 +296,7 @@
                             </a>
                             <a href="https://dogechain.info/">
                                 <li>Dogechain.info API</li>
-                            </a>                            
+                            </a>
                             <a href="https://www.cryptonator.com/">
                                 <li>Cryptonator.com</li>
                             </a>

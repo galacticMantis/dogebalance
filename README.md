@@ -14,6 +14,8 @@ Basically what it does is uses the dogechain.info API to retrieve your balance a
 5. Tap the Shibe's face to see your QR code.
 6. Tap your balance to see decimals if there are any.
 7. 1Đ will always be 1D but if for some reason you want to check the current exchange rate tap the top bar to open the panel. Tap that panel to choose or enter a currency.
+8. Now saves up to the previous 3 addresses searched. Tap the address below the search bar to see them.
+
 
 
 //Directions//
