@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="images/icons/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="images/icons/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="images/icons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
@@ -100,8 +100,8 @@
         <div class="previousAddressBGClose" v-if="showPrevAddrMenu" @click="showPreviousAddressMenu()"></div>
         <nav class="navDoge fadeInDown" role="navigation" aria-label="main navigation" @click="showConversionMenu()">
             <div class="titleDoge">
-                <wow>DOGECOIN</wow> <img alt="Flat Dogecoin Image" class="dogeIcon" src="images/dogeIcon.png">
-                <wow>BALANCE</wow>
+                <span class="wow">DOGECOIN</span> <img alt="Flat Dogecoin Image" class="dogeIcon" src="images/dogeIcon.png">
+                <span class="wow">BALANCE</span>
             </div>
         </nav>
 
@@ -164,7 +164,7 @@
             <div class="addressForm fadeIn">
                 <div class="columns is-mobile">
 
-                    <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered is-paddingless subtitleDoge">Current Balance
+                    <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered is-paddingless subtitleDoge is-unselectable">Current Balance
                         <br>
                         <transition name="fade" mode="out-in">
                             <div key="1" v-if="isRaw">
@@ -188,15 +188,6 @@
                 </div>
 
                 <div class="has-text-centered visAddress"><a @click="showPreviousAddressMenu">{{ visibleAddr }} </a>
-                    <div v-if="showPrevAddrMenu" v-click-outside="showPreviousAddressMenu" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
-                        <p>Previous Addresses</p>
-                        <ul>
-                            <li v-if="slot1" @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
-                            <li v-if="slot2" @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
-                            <li v-if="slot3" @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot3 }}</li>
-                        </ul>
-
-                    </div>
                 </div>
 
                 <div class="columns is-mobile">
@@ -211,6 +202,19 @@
             <!--Close address form-->
         </div>
         <!--close dogeContent-->
+        
+        
+         <transition name="fade" enter-active-class="fadeInUp" leave-active-class="fadeOutDown">
+                    <div v-if="showPrevAddrMenu" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
+                        <p>Previous Addresses <button class="delete" aria-label="close" @click="showPreviousAddressMenu();"></button></p>
+                        <ul>
+                            <li v-if="slot1" @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
+                            <li v-if="slot2" @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
+                            <li v-if="slot3" @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot3 }}</li>
+                        </ul>
+
+                    </div>
+                    </transition>
         <nav class="navbar is-transparent is-fixed-bottom bottomNav fadeInUp">
             <div class="navbar-brand">
 

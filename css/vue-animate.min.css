@@ -449,7 +449,7 @@
 .fadeIn,
 .fade-leave-active,
 .fadeOut {
-  animation-duration: 1s;
+  animation-duration: 0.1s;
   animation-fill-mode: both;
 }
 .fade-enter-active,
