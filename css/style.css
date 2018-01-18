@@ -275,6 +275,7 @@ label {
 
 .previousAddress {
     position: absolute;
+    margin-top:-10.5em;
     background-color: #EBB069;
     font-size: 0.8em;;
     height: auto;
