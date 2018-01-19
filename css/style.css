@@ -287,7 +287,6 @@ label {
 
 .previousAddress p {
     font-size: 0.9em;
-    color: black;
     text-align: center;
 
 }
@@ -309,6 +308,7 @@ label {
     color: #F2F2F2;
     padding-bottom: 0.25em;
     padding-top: 0.25em;
+    text-align: center;
 }
 
 .previousAddress li:hover {

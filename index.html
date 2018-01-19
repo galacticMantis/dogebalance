@@ -206,7 +206,7 @@
         
          <transition name="fade" enter-active-class="fadeInUp" leave-active-class="fadeOutDown">
                     <div v-if="showPrevAddrMenu" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
-                        <p>Previous Addresses <button class="delete" aria-label="close" @click="showPreviousAddressMenu();"></button></p>
+                        <p class="is-unselectable" @click="showPreviousAddressMenu();">Previous Addresses <button class="delete" aria-label="close" @click="showPreviousAddressMenu();"></button></p>
                         <ul>
                             <li v-if="slot1" @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
                             <li v-if="slot2" @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
