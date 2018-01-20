@@ -277,12 +277,18 @@ label {
 
 .previousAddress {
     position: absolute;
-    margin-top:-14.3em;
+    margin-top:-16.9em;
     background-color: #EBB069;
     font-size: 0.8em;;
-    height: 8.5em;
+    height: auto;
     padding-bottom: 1em;
     z-index: 3600;
+}
+
+.previousAddress button{
+    z-index:50;
+/*    display:none;*/
+    
 }
 
 .previousAddress p {
@@ -303,9 +309,13 @@ label {
 }
 
 .previousAddress li {
+    font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 600;
+    font-size:1.4em;
     cursor: pointer;
     color: #F2F2F2;
+    padding-left:0.5em;
+    padding-right:0.5em;
     padding-bottom: 0.25em;
     padding-top: 0.25em;
     text-align: center;

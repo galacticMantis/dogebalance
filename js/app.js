@@ -106,6 +106,7 @@ var vm = new Vue({
                     vm.visibleAddr = dogeAddr;
                     vm.dogeConversion = b;
                     localStorage.setItem("userBalance", b);
+                    localStorage.setItem("userAddr", dogeAddr);
                     vm.convertDoge();
 
                 })

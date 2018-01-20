@@ -11,8 +11,8 @@
     <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
     <!--Main App Scripts-->
-    <!--    <script src="js/vue.min.js"></script>-->
-    <script src="js/vue.js"></script>
+        <script src="js/vue.min.js"></script>
+<!--    <script src="js/vue.js"></script>-->
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/axios.min.js"></script>
     <script src="js/qr_packed.js"></script>
@@ -97,7 +97,7 @@
         </div>
         <!--This is where the VR ends-->
         <div class="BGClose" v-if="showConversion" @click="showCurrenciesMenu(), showConversionMenu()"></div>
-        <div class="previousAddressBGClose" v-if="showPrevAddrMenu" @click="showPreviousAddressMenu()"></div>
+        <div class="previousAddressBGClose" v-if="showPrevAddrMenu && slot1" @click="showPreviousAddressMenu()"></div>
         <nav class="navDoge fadeInDown" role="navigation" aria-label="main navigation" @click="showConversionMenu()">
             <div class="titleDoge">
                 <span class="wow">DOGECOIN</span> <img alt="Flat Dogecoin Image" class="dogeIcon" src="images/dogeIcon.png">
@@ -202,19 +202,19 @@
             <!--Close address form-->
         </div>
         <!--close dogeContent-->
-        
-        
-         <transition name="fade" enter-active-class="fadeInUp" leave-active-class="fadeOutDown">
-                    <div v-if="showPrevAddrMenu" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
-                        <p class="is-unselectable" @click="showPreviousAddressMenu();">Previous Addresses <button class="delete" aria-label="close" @click="showPreviousAddressMenu();"></button></p>
-                        <ul>
-                            <li v-if="slot1" @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
-                            <li v-if="slot2" @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
-                            <li v-if="slot3" @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot3 }}</li>
-                        </ul>
 
-                    </div>
-                    </transition>
+
+        <transition name="fade" enter-active-class="fadeInUp" leave-active-class="fadeOutDown">
+            <div v-if="showPrevAddrMenu && slot1" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
+                <p class="is-unselectable" @click="showPreviousAddressMenu();">Previous Addresses <button class="delete" aria-label="close"></button></p>
+                <ul>
+                    <li v-if="slot1" @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
+                    <li v-if="slot2" @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
+                    <li v-if="slot3" @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot3 }}</li>
+                </ul>
+
+            </div>
+        </transition>
         <nav class="navbar is-transparent is-fixed-bottom bottomNav fadeInUp">
             <div class="navbar-brand">
 
