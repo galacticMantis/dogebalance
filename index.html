@@ -11,8 +11,8 @@
     <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
     <!--Main App Scripts-->
-        <script src="js/vue.min.js"></script>
-<!--    <script src="js/vue.js"></script>-->
+    <!--    <script src="js/vue.min.js"></script>-->
+    <script src="js/vue.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/axios.min.js"></script>
     <script src="js/qr_packed.js"></script>
@@ -89,10 +89,10 @@
 
                     <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr"></a-text>
 
-                    <a-text id="1Dis1DVR" align="center" position="0.1 3 0.332" rotation="0 0 0" v-bind:value="'1D = ' + dogeExchangeRate + country" scale="1 1 1" visible="true"></a-text>
+<!--                    <a-text id="1Dis1DVR" align="center" position="0.1 3 0.332" rotation="0 0 0" v-bind:value="'1D = ' + dogeExchangeRate + country" scale="1 1 1" visible="true"></a-text>-->
 
                 </a-entity>
-                <a-image id="Ground" height="50" width="150" rotation="90 0 0" position="0 0 0" src="#moonSurface"></a-image>
+                <a-image id="Ground" height="25" width="50" rotation="90 0 0" position="0 0 0" src="#moonSurface"></a-image>
             </a-scene>
         </div>
         <!--This is where the VR ends-->
