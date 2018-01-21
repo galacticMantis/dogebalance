@@ -51,6 +51,8 @@ body {
 .exchangeDoge p {
     margin-bottom: -0.8em;
     padding-top: 0.3em;
+    padding-bottom: 0.2em;
+    
 
 }
 
@@ -63,6 +65,10 @@ body {
 .exchangeDoge h2 {
     display: inline-block;
     font-size: 2em;
+}
+
+.exchangeDoge .mdi:hover{
+    color:#E8922D;
 }
 
 .BGClose {
@@ -293,6 +299,7 @@ label {
 
 .previousAddress p {
     font-size: 0.9em;
+    font-weight: 700;
     text-align: center;
 
 }
@@ -310,7 +317,7 @@ label {
 
 .previousAddress li {
     font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 600;
+    font-weight: 200;
     font-size:1.4em;
     cursor: pointer;
     color: #F2F2F2;
@@ -322,7 +329,7 @@ label {
 }
 
 .previousAddress li:hover {
-    font-weight: 600;
+    font-weight: 400;
     background-color: white;
     color: #E8922D;
 }
