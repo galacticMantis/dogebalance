@@ -52,7 +52,7 @@ body {
     margin-bottom: -0.8em;
     padding-top: 0.3em;
     padding-bottom: 0.2em;
-    
+
 
 }
 
@@ -67,8 +67,8 @@ body {
     font-size: 2em;
 }
 
-.exchangeDoge .mdi:hover{
-    color:#E8922D;
+.exchangeDoge .mdi:hover {
+    color: #E8922D;
 }
 
 .BGClose {
@@ -130,7 +130,7 @@ body {
 
     margin-left: auto;
     margin-right: auto;
-    padding-bottom:1em;
+    padding-bottom: 1em;
 
 }
 
@@ -141,6 +141,7 @@ body {
 .currencySearch {
     width: 20%;
 }
+
 .dogeIcon {
     max-height: 40px;
     max-width: 40px;
@@ -230,7 +231,7 @@ a-scene {
 
 .subtitleDoge {
     font-size: 0.6em;
-    
+
 }
 
 .columns .dogeButton {
@@ -278,23 +279,23 @@ label {
 .visAddress a {
     font-size: 0.8em;
     color: #E8922D;
-    z-index:35;
+    z-index: 35;
 }
 
 .previousAddress {
     position: absolute;
-    margin-top:-16.9em;
+    margin-top: -16.9em;
     background-color: #EBB069;
-    font-size: 0.8em;;
+    font-size: 0.8em;
+    ;
     height: auto;
     padding-bottom: 1em;
     z-index: 3600;
 }
 
-.previousAddress button{
-    z-index:50;
-/*    display:none;*/
-    
+.previousAddress button {
+    z-index: 50;
+    /*    display:none;*/
 }
 
 .previousAddress p {
@@ -304,25 +305,25 @@ label {
 
 }
 
-.previousAddressBGClose{
+.previousAddressBGClose {
     position: absolute;
     background-color: red;
     height: 100%;
     width: 100%;
-    top:0;
+    top: 0;
     z-index: 2;
     opacity: 0;
-    
+
 }
 
 .previousAddress li {
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 200;
-    font-size:1.4em;
+    font-size: 1.4em;
     cursor: pointer;
     color: #F2F2F2;
-    padding-left:0.5em;
-    padding-right:0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
     padding-bottom: 0.25em;
     padding-top: 0.25em;
     text-align: center;
@@ -334,8 +335,8 @@ label {
     color: #E8922D;
 }
 
-.previousAddress .delete{
-    float:right;
+.previousAddress .delete {
+    float: right;
 }
 
 .bottomNav {
@@ -439,6 +440,6 @@ label {
     transition-duration: 0.3s;
 }
 
-.fadeOutIn{
+.fadeOutIn {
     transition-duration: 0.3s;
 }

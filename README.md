@@ -20,10 +20,14 @@ Basically what it does is uses the dogechain.info API to retrieve your balance a
 
 //Directions//
 
+For Augmented Reality you need the right target. [Download Here](https://galacticmantis.github.io/dogebalance/downloads/dogeAR.pdf)
+
 You can either type in your public address, copy and paste, or scan/upload your QR code. Press 'Find my Doge' and your balance should pop up.
 
-Afterwards you can tap the dogecoin to see your QR code, tap the balance to switch to decimal form, or tap the address to view your info on dogechain.info.
+Afterwards you can tap the dogecoin to see your QR code, tap the balance to switch to full decimal form, or tap the address to see your other wallet addresses.
+
+The website will save your previous 3 addresses in local memory so that you can check all of them whenever you visit the website without re-scanning your address.
 
 OR you can click VR mode and be brought into a full screen experience that allows you to view your Balance in VR. Turn your phone back to portrait to exit VR mode.
 
-AR functionality is done using AR.js so it should work in most mobile browsers. For iPhones you'll need to be updated to iOS11 and have to be on Safari.
+AR functionality is done using AR.js so it should work in most mobile browsers. For iPhones you'll need to be updated to iOS11 and have to be on Safari. It will ask you to allow use of the camera. If the page stays white then just refresh it and try again.

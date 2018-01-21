@@ -59,33 +59,33 @@ var vm = new Vue({
             localStorage.setItem("userAddr", document.getElementById('input').value);
             var vm = this;
             axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
-                var successAddress = response.data['success'];
+                    var successAddress = response.data['success'];
                     var shortBal = parseInt(response.data['balance']); //Short Balance
                     var longBal = parseFloat(response.data['balance']); //Long Balance
-                
-                if (successAddress == 1){
-                    var a = numeral(shortBal).format('0,0');
-                    var b = numeral(longBal).format('0,0.00000000');
-                    vm.intBalance = longBal;
-                    vm.balance = a + ' Đ';
-                    vm.balanceRaw = b + ' Đ';
-                    vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
-                    vm.dogeConversion = b;
-                    localStorage.setItem("userBalance", b);
-                    vm.previousAddress();
-                    vm.convertDoge();
+
+                    if (successAddress == 1) {
+                        var a = numeral(shortBal).format('0,0');
+                        var b = numeral(longBal).format('0,0.00000000');
+                        vm.intBalance = longBal;
+                        vm.balance = a + ' Đ';
+                        vm.balanceRaw = b + ' Đ';
+                        vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
+                        vm.dogeConversion = b;
+                        localStorage.setItem("userBalance", b);
+                        vm.previousAddress();
+                        vm.convertDoge();
                     }
 
                 })
                 .catch(function (error) {
                     alert('Such Invalid Address...');
-                    if (localStorage.getItem("slot1") != null) {//Slot1 is not empty
+                    if (localStorage.getItem("slot1") != null) { //Slot1 is not empty
                         vm.visibleAddr = localStorage.getItem("slot1");
                         localStorage.setItem("userAddr", localStorage.getItem("slot1"));
                         vm.slot1 = localStorage.getItem("slot1");
                         vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + vm.visibleAddr;
                     } else {
-                        vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                        vm.visibleAddr = 'DPy6NKcp5Fed26Q6Zs1WjRBp1eNHAXBMHy';
                     }
                 })
         },
@@ -111,10 +111,10 @@ var vm = new Vue({
 
                 })
                 .catch(function (error) {
-                if (localStorage.getItem("slot1") != null) {
+                    if (localStorage.getItem("slot1") != null) {
                         vm.visibleAddr = localStorage.getItem("slot1");
                     } else {
-                        vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                        vm.visibleAddr = 'DPy6NKcp5Fed26Q6Zs1WjRBp1eNHAXBMHy';
                         localStorage.setItem("userBalance", null);
                     }
                 })
@@ -172,7 +172,7 @@ var vm = new Vue({
         dogeDefault: function () { //performs the same functions as above but with default values in place.
             if (localStorage.getItem("userAddr") === null || '') { //hollyy woww. I can't believe I actually got this working! Checks if the user has entered an address before. If they have it reloads from local storage!
                 this.balance = 'loading...';
-                dogeAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                dogeAddr = 'DPy6NKcp5Fed26Q6Zs1WjRBp1eNHAXBMHy';
                 var vm = this;
                 axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
                         var shortBal = parseInt(response.data['balance']); //Short Balance
@@ -226,7 +226,7 @@ var vm = new Vue({
             dogeAddr = document.getElementById('input').value
             var vm = this;
             vm.visibleAddr = dogeAddr;
-            
+
         },
 
 
@@ -337,7 +337,7 @@ var vm = new Vue({
                 localStorage.setItem("userAddr", document.getElementById('input').value);
                 localStorage.setItem("slot1", document.getElementById('input').value);
                 vm.slot1 = localStorage.getItem("slot1");
-            }      
+            }
         },
 
     }
